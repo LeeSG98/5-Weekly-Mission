@@ -4,8 +4,11 @@ import {
   isEmailValid,
   isPasswordValid,
   togglePassword,
+  TEST_USER,
   checkAccessToken,
 } from "./utils.js";
+
+checkAccessToken("/folder");
 
 const emailInput = document.querySelector("#email");
 const emailErrorMessage = document.querySelector("#email-error-message");
@@ -20,10 +23,10 @@ function validateEmailInput(email) {
     );
     return false;
   }
-  if (!isEmailValid(email)) {
+  if (email === TEST_USER.email) {
     setInputError(
       { input: emailInput, errorMessage: emailErrorMessage },
-      "올바른 이메일 주소가 아닙니다."
+      "이미 사용 중인 이메일입니다."
     );
     return false;
   }
@@ -101,7 +104,7 @@ confirmPasswordToggleButton.addEventListener("click", () =>
 
 const signForm = document.querySelector("#form");
 signForm.addEventListener("submit", submitForm);
-async function submitForm(event) {
+function submitForm(event) {
   event.preventDefault();
 
   const isEmailInputValid = validateEmailInput(emailInput.value);
@@ -109,70 +112,12 @@ async function submitForm(event) {
   const isConfirmPasswordInputValid = validateConfirmPasswordInput(
     confirmPasswordInput.value
   );
-  const isRedundancyEmail = await redundancyEmails(event);
+
   if (
     isEmailInputValid &&
     isPasswordInputValid &&
-    isConfirmPasswordInputValid &&
-    isRedundancyEmail
+    isConfirmPasswordInputValid
   ) {
-    location.href = "./folder.html";
+    location.href = "/folder";
   }
 }
-
-const redundancyEmails = async (e) => {
-  e.preventDefault();
-
-  try {
-    const response = await fetch(
-      "https://bootcamp-api.codeit.kr/api/check-email",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: emailInput.value,
-        }),
-      }
-    );
-    if (!response.ok) {
-      throw new Error("실패");
-    }
-    register(e);
-  } catch (error) {
-    setInputError(
-      { input: emailInput, errorMessage: emailErrorMessage },
-      "이미 사용중인 이메일입니다."
-    );
-    console.error("Error:", error);
-    return false;
-  }
-};
-
-const register = async function (e) {
-  e.preventDefault();
-
-  try {
-    const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-up", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: emailInput.value,
-        password: passwordInput.value,
-      }),
-    });
-    if (!response.ok) {
-      throw new Error("실패");
-    }
-    const data = await response.json();
-    localStorage.setItem("accessToken", data.accessToken);
-    location.href = "./folder.html";
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
-
-checkAccessToken();

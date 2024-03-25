@@ -39,9 +39,14 @@ export function togglePassword(input, toggleButton) {
     .setAttribute("src", "./image/eye-off.svg");
 }
 
-export function checkAccessToken() {
+export function checkAccessToken(destination) {
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
-    location.href = "./folder.html";
+    location.replace(destination);
   }
 }
+
+export const TEST_USER = {
+  email: "test@codeit.com",
+  password: "codeit101",
+};

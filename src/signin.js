@@ -6,6 +6,8 @@ import {
   checkAccessToken,
 } from "./utils.js";
 
+checkAccessToken("/forder");
+
 const emailInput = document.querySelector("#email");
 const emailErrorMessage = document.querySelector("#email-error-message");
 emailInput.addEventListener("focusout", (event) =>
@@ -54,10 +56,9 @@ passwordToggleButton.addEventListener("click", () =>
 );
 
 const signForm = document.querySelector("#form");
-signForm.addEventListener("submit", async function (e) {
-  e.preventDefault();
-  const email = emailInput.value;
-  const password = passwordInput.value;
+signForm.addEventListener("submit", submitForm);
+async function submitForm(event) {
+  event.preventDefault();
 
   try {
     const response = await fetch("https://bootcamp-api.codeit.kr/api/sign-in", {
@@ -66,17 +67,24 @@ signForm.addEventListener("submit", async function (e) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: email,
-        password: password,
+        email: emailInput.value,
+        password: passwordInput.value,
       }),
     });
+
     if (!response.ok) {
-      throw new Error("실패");
+      throw Error();
     }
-    const data = await response.json();
-    localStorage.setItem("accessToken", data.accessToken);
-    location.href = "./folder.html";
-  } catch (error) {
+
+    const { data } = await response.json();
+    const accessToken = data?.accessToken;
+    if (!accessToken) {
+      alert("토큰이 없습니다.");
+      return;
+    }
+    localStorage.setItem("accessToken", accessToken);
+    location.href = "/folder";
+  } catch {
     setInputError(
       { input: emailInput, errorMessage: emailErrorMessage },
       "이메일을 확인해주세요."
@@ -85,8 +93,5 @@ signForm.addEventListener("submit", async function (e) {
       { input: passwordInput, errorMessage: passwordErrorMessage },
       "비밀번호를 확인해주세요."
     );
-    console.error("Error:", error);
   }
-});
-
-checkAccessToken();
+}
