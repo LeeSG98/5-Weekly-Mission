@@ -1,5 +1,5 @@
 export const ROUTE = {
-  랜딩: "/",
+  랜딩: "/folder",
   로그인: "/signin",
   회원가입: "/signup",
   폴더: "/folder",
