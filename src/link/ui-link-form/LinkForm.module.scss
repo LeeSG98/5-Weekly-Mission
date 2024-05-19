@@ -1,16 +1,4 @@
-@import "sharing/styles/global.scss";
-
-.container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 2.4rem 3.2rem 4rem;
-  background-color: $color-light-blue;
-
-  @include tablet {
-    padding: 6rem 3.2rem 9rem;
-  }
-}
+@import "@/styles/global.scss";
 
 .form {
   display: flex;
