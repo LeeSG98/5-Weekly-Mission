@@ -1,15 +1,15 @@
-import { useGetFolders } from "@/src/folder/data-access-folder";
-import { useGetLinks } from "@/src/link/data-access-link";
-import { Layout } from "@/src/sharing/feature-layout";
+import { useGetFolders } from "@/src/folder/FolderDataAccess";
+import { useGetLinks } from "@/src/link/DataAccess";
+import { Layout } from "@/src/sharing/Layout";
 import { FolderLayout } from "@/src/page-layout/FolderLayout";
-import { FolderToolBar } from "@/src/folder/feature-folder-tool-bar";
-import { SearchBar } from "@/src/link/ui-search-bar";
+import { FolderToolBar } from "@/src/folder/ToolBar";
+import { SearchBar } from "@/src/link/SearchBar";
 import { useState } from "react";
-import { ALL_LINKS_ID } from "@/src/link/data-access-link/constant";
-import { LinkForm } from "@/src/link/feature-link-form";
-import { CardList } from "@/src/link/feature-card-list";
+import { ALL_LINKS_ID } from "@/src/link/DataAccess/constant";
+import { LinkForm } from "@/src/link/FormFeature";
+import { CardList } from "@/src/link/CardListFeature";
 import { SelectedFolderId } from "@/src/folder/type";
-import { useSearchLink } from "@/src/link/util-search-link";
+import { useSearchLink } from "@/src/link/SearchLink";
 import { useIntersectionObserver } from "@/src/sharing/util";
 
 const FolderPage = () => {

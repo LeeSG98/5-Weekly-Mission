@@ -1,11 +1,11 @@
-import { useGetFolder } from "@/src/folder/data-access-folder";
-import { Layout } from "@/src/sharing/feature-layout";
+import { useGetFolder } from "@/src/folder/FolderDataAccess";
+import { Layout } from "@/src/sharing/Layout";
 import { SharedLayout } from "@/src/page-layout/SharedLayout";
-import { CardList } from "@/src/link/ui-card-list";
-import { FolderInfo } from "@/src/folder/ui-folder-info";
-import { ReadOnlyCard } from "@/src/link/ui-read-only-card";
-import { SearchBar } from "@/src/link/ui-search-bar";
-import { useSearchLink } from "@/src/link/util-search-link/useSearchLink";
+import { CardList } from "@/src/link/CardList";
+import { FolderInfo } from "@/src/folder/Info";
+import { ReadOnlyCard } from "@/src/link/ReadOnlyCard";
+import { SearchBar } from "@/src/link/SearchBar";
+import { useSearchLink } from "@/src/link/SearchLink/useSearchLink";
 
 const SharedPage = () => {
   const { data } = useGetFolder();

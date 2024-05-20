@@ -1,8 +1,8 @@
-import { Oauth } from "@/src/auth/feature-oauth";
-import { SignHeader } from "@/src/auth/ui-sign-header";
+import { Oauth } from "@/src/auth/Oauth";
+import { SignHeader } from "@/src/auth/SignHeader";
 import { SignLayout } from "@/src/page-layout/SignLayout";
 import { ROUTE } from "@/src/sharing/util";
-import { SignUpForm } from "@/src/auth/feature-sign-up-form";
+import { SignUpForm } from "@/src/auth/SignUpForm";
 
 const SignUpPage = () => {
   return (

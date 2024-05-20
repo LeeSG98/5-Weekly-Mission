@@ -1,6 +1,6 @@
-import { SignInForm } from "@/src/auth/feature-sign-in-form";
-import { Oauth } from "@/src/auth/feature-oauth";
-import { SignHeader } from "@/src/auth/ui-sign-header";
+import { SignInForm } from "@/src/auth/SignInForm";
+import { Oauth } from "@/src/auth/Oauth";
+import { SignHeader } from "@/src/auth/SignHeader";
 import { SignLayout } from "@/src/page-layout/SignLayout";
 import { ROUTE } from "@/src/sharing/util";
 
