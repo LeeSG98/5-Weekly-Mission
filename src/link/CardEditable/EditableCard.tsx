@@ -10,7 +10,7 @@ import {
 import { Card } from "@/src/sharing/Card";
 import { CardContent } from "@/src/sharing/CardContent";
 import { CardImage } from "@/src/sharing/CardImage";
-import { Popover } from "@/src/sharing/ui-popover";
+import { Popover } from "@/src/sharing/Popover";
 
 const cx = classNames.bind(styles);
 
