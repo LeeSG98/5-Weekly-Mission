@@ -1,58 +1,40 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 export const Footer = styled.footer`
-  width: 100%;
-  padding: 32px 104px 108px;
-  background-color: var(--Linkbrary-black);
-  font-family: 'Arial', sans-serif;
-  font-size: 1rem;
-
-  @media (max-width: 767px) {
-    font-size: 1rem;
-    padding: 32px;
-  }
-`;
-
-export const Inner = styled.div`
+  background-color: var(--footerBgColor);
   display: flex;
   justify-content: space-between;
-  max-width: 1712px;
-  margin: 0 auto;
+  padding: 2rem 6.5rem 4rem;
+  margin-top: 3.75rem;
+  height: 10rem;
+  font-size: 1rem;
 
-  @media (max-width: 767px) {
-    display: grid;
+  @media screen and (max-width: 767px) {
+    margin-top: 2.5rem;
+    padding: 2rem 2rem 4rem;
+    position: relative;
   }
 `;
 
-export const Address = styled.address`
-  flex-basis: 120px;
-  color: #676767;
-
-  @media (max-width: 767px) {
-    grid-row: 2;
-    grid-column: 1;
-    margin-top: 58px;
+export const FooterLogo = styled(Link)`
+  color: var(--footerText1);
+  @media screen and (max-width: 767px) {
+    position: absolute;
+    bottom: 2rem;
   }
 `;
 
-export const NavList = styled.ul`
+export const FooterNav = styled.ul`
   display: flex;
-  gap: 30px;
-  color: #cfcfcf;
-
-  @media (max-width: 767px) {
-    grid-row: 1;
-    grid-column: 1;
-  }
+  gap: 1.88rem;
 `;
 
-export const SnsList = styled.ul`
-  flex-basis: 120px;
-  display: flex;
-  gap: 12px;
+export const FooterNavText = styled(Link)`
+  color: var(--footerText2);
+`;
 
-  @media (max-width: 767px) {
-    grid-row: 1;
-    grid-column: 2;
-  }
+export const FooterLink = styled.ul`
+  display: flex;
+  gap: 0.75rem;
 `;

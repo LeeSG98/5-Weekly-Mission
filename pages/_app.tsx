@@ -1,20 +1,26 @@
 import type { AppProps } from 'next/app';
-import { usePathname } from 'next/navigation';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
-import { UserProvider } from '@/contexts/UserContext';
-import GlobalStyle from '@/styles/globals.styled';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useState } from 'react';
+import GlobalStyles from '../styles/Global.styled';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const pathname = usePathname();
-  const isAuthPage = pathname === '/signup' || pathname === '/signin';
-
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 1 * 60 * 1000,
+            gcTime: 5 * 60 * 1000
+          }
+        }
+      })
+  );
   return (
-    <UserProvider>
-      <GlobalStyle />
-      {!isAuthPage && <Header />}
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <GlobalStyles />
       <Component {...pageProps} />
-      {!isAuthPage && <Footer />}
-    </UserProvider>
+    </QueryClientProvider>
   );
 }

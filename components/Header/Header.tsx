@@ -1,55 +1,35 @@
-import { useContext, useState } from "react";
-import { useRouter } from "next/router";
-import Profile from "../Profile/Profile";
-import { UserContext } from "@/contexts/UserContext";
-import Link from "next/link";
-import * as S from "./Header.styled";
-import logoImg from "@/public/images/logo.svg";
-import { getUser } from "@/apis/api";
+import Link from 'next/link';
+import Image from 'next/image';
+import * as Styled from './Header.styled';
+import PAGE_PATH from '../../constant/pagePath';
+import { useUserInfo } from '../../hooks/useUserInfo';
 
-export default function Header() {
-  const { user, setUser } = useContext(UserContext);
-  const router = useRouter();
-  const $isSticky = router.pathname.includes("/folder");
-  const [isVisibleKebabModal, setIsVisibleKebabModal] = useState(false);
+const HeaderLogoImg = '/icon/header-logo.svg';
 
-  const handleProfileClick = () => {
-    setIsVisibleKebabModal((prev) => !prev);
-  };
+interface HeaderProps {
+  isSticky?: boolean;
+}
 
-  const handleLogout = async () => {
-    localStorage.removeItem("accessToken");
-    const nextUser = await getUser();
-    setUser(nextUser);
-    router.push("/");
-  };
+function Header({ isSticky = true }: HeaderProps) {
+  const userInfo = useUserInfo();
 
   return (
-    <S.Header $isSticky={$isSticky}>
-      <S.Inner>
-        <h1>
-          <Link href="/">
-            <S.LogoImage
-              src={logoImg}
-              alt="linkbrary logo"
-              width="133"
-              height="24"
-              sizes="(max-width: 767px) 89px, 133px"
-              priority={true}
-            />
-          </Link>
-        </h1>
-        {user ? (
-          <S.ProfileButton onClick={handleProfileClick}>
-            <Profile user={user.email} src={user.image_source} $size="s" />
-            {isVisibleKebabModal && (
-              <S.LogoutButton onClick={handleLogout}>로그아웃</S.LogoutButton>
-            )}
-          </S.ProfileButton>
+    <Styled.Header $isSticky={isSticky}>
+      <Styled.Nav>
+        <Link href={PAGE_PATH.main}>
+          <Image width="133" height="24" src={HeaderLogoImg} alt="롤링 로고 이미지" priority />
+        </Link>
+        {userInfo ? (
+          <Styled.UserInfoBox>
+            <Styled.UserImage width={28} height={28} src={userInfo?.image_source} alt="유저 프로필 이미지" />
+            <Styled.UserEmail>{userInfo?.email}</Styled.UserEmail>
+          </Styled.UserInfoBox>
         ) : (
-          <S.StyledButton link="/signin" text="로그인" />
+          <Styled.LoginButton href="/signin">로그인</Styled.LoginButton>
         )}
-      </S.Inner>
-    </S.Header>
+      </Styled.Nav>
+    </Styled.Header>
   );
 }
+
+export default Header;

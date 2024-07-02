@@ -1,49 +1,66 @@
-import Link from "next/link";
-import FooterSns from "./FooterSns";
-import * as S from "./Footer.styled";
+import Image from 'next/image';
+import * as Styled from './Footer.styled';
 
-const SNS_LIST = [
+interface FooterLinkType {
+  url: string;
+  icon: string;
+  text: string;
+}
+
+const FacebookIcon = '/icon/footer-facebook.svg';
+const TwitterIcon = '/icon/footer-twitter.svg';
+const YoutubeIcon = '/icon/footer-youtube.svg';
+const InstargramIcon = '/icon/footer-instargram.svg';
+
+const FOOTER_LINK_LIST: FooterLinkType[] = [
   {
-    id: 1,
-    name: "facebook",
-    url: "https://www.facebook.com/",
+    url: 'https://facebook.com/?locale=ko_KR',
+    icon: FacebookIcon,
+    text: '페이스북'
   },
   {
-    id: 2,
-    name: "twitter",
-    url: "https://twitter.com/",
+    url: 'https://twitter.com/?lang=ko',
+    icon: TwitterIcon,
+    text: '트위터'
   },
   {
-    id: 3,
-    name: "youtube",
-    url: "https://www.youtube.com/",
+    url: 'https://www.youtube.com',
+    icon: YoutubeIcon,
+    text: '유튜브'
   },
   {
-    id: 4,
-    name: "instagram",
-    url: "https://www.instagram.com/",
-  },
+    url: 'https://www.instagram.com',
+    icon: InstargramIcon,
+    text: '인스타그램'
+  }
 ];
 
-export default function Footer() {
+function Footer() {
   return (
-    <S.Footer>
-      <S.Inner>
-        <S.Address>©codeit - 2024</S.Address>
-        <S.NavList>
-          <li>
-            <Link href="/privacy">Privacy Policy</Link>
-          </li>
-          <li>
-            <Link href="/faq">FAQ</Link>
-          </li>
-        </S.NavList>
-        <S.SnsList>
-          {SNS_LIST.map((sns) => (
-            <FooterSns key={sns.id} id={sns.id} name={sns.name} url={sns.url} />
-          ))}
-        </S.SnsList>
-      </S.Inner>
-    </S.Footer>
+    <Styled.Footer>
+      <Styled.FooterLogo href="/">©codeit - 2023</Styled.FooterLogo>
+      <Styled.FooterNav>
+        <li>
+          <Styled.FooterNavText href="/privacy">Privacy Policy</Styled.FooterNavText>
+        </li>
+        <li>
+          <Styled.FooterNavText href="/faq">FAQ</Styled.FooterNavText>
+        </li>
+      </Styled.FooterNav>
+      <Styled.FooterLink>
+        {FOOTER_LINK_LIST.map((list: FooterLinkType, idx: number) => {
+          const { url, icon, text } = list;
+          return (
+            <li key={idx}>
+              <a href={url} target="_blank" rel="noreferrer">
+                <Image width={20} height={20} src={icon} alt={`${text} 아이콘`} />
+              </a>
+            </li>
+          );
+        })}
+      </Styled.FooterLink>
+    </Styled.Footer>
   );
 }
+
+export default Footer;

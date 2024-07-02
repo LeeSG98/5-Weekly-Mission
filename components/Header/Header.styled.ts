@@ -1,71 +1,75 @@
 import styled from 'styled-components';
-import Button from '../Button/Button';
+import Link from 'next/link';
 import Image from 'next/image';
 
-export const Header = styled.header<{ $isSticky: boolean }>`
-  position: ${({ $isSticky }) => ($isSticky ? 'sticky' : 'relative')};
+interface HeaderProps {
+  $isSticky: boolean;
+}
+
+export const Header = styled.div<HeaderProps>`
+  width: 100%;
+  max-width: 1920px;
+  min-width: 375px;
+  background-color: var(--Linkbrary-bg);
+  position: ${({ $isSticky }) => ($isSticky ? 'sticky' : 'static')};
   top: 0;
-  padding: 20px 32px;
-  background: var(--Linkbrary-bg);
-  z-index: 1;
+  left: 0;
+  z-index: 999;
+  padding: 2rem 0;
 
-  @media (max-width: 1199px) {
-    padding: 20px 32px;
-  }
-
-  @media (max-width: 767px) {
-    padding: 13px 32px;
+  @media screen and (max-width: 767px) {
+    padding: 1.125rem 0;
   }
 `;
 
-export const Inner = styled.div`
+export const Nav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1520px;
-  margin: 0 auto;
+  margin: 0 12.5rem;
 
-  @media (max-width: 1199px) {
-    width: 100%;
+  @media screen and (max-width: 1124px) {
+    margin: 0 auto;
+    width: 47rem;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: auto;
+    margin: 0 2rem;
   }
 `;
 
-export const LogoImage = styled(Image)`
-  width: 133px;
-  height: 24px;
-
-  @media (max-width: 767px) {
-    width: 89px;
-    height: 16px;
-  }
+export const UserInfoBox = styled.div`
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
 `;
 
-export const StyledButton = styled(Button)`
-  width: 128px;
-
-  @media (max-width: 767px) {
-    width: 80px;
-  }
+export const UserImage = styled(Image)`
+  border-radius: 50%;
+  width: 1.75rem;
+  height: 1.75rem;
 `;
 
-export const ProfileButton = styled.div`
-  position: relative;
-  user-select: none;
-  cursor: pointer;
+export const UserEmail = styled.span`
+  color: var(--Linkbrary-gray100);
+  font-size: 0.875rem;
+  display: inline-block;
 `;
 
-export const LogoutButton = styled.button`
-  position: absolute;
-  top: 30px;
-  right: 0;
-  width: 100px;
+export const LoginButton = styled(Link)`
+  width: 8rem;
   text-align: center;
-  padding: 10px 0;
-  background: var(--Linkbrary-white);
-  border-radius: 10px;
-  box-shadow: 0px 2px 8px 0px rgba(51, 50, 54, 0.1);
+  padding: 1rem 1.25rem;
+  background: var(--button);
+  font-size: 1.125rem;
+  border-radius: 0.5rem;
+  color: var(--Grey-Light, #f5f5f5);
+  cursor: pointer;
 
-  &:hover {
-    color: var(--Linkbrary-primary);
+  @media screen and (max-width: 767px) {
+    padding: 1rem 0.62rem;
+    font-size: 0.875rem;
+    width: 5rem;
   }
 `;
